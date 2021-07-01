@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title> Dashboard </title>
+</head>
+<body>
+	<section>
+		<div class="card   mx-4" th:if="${contact}">
+		<div th:if="${session.message}"
+							th:classappend="${session.message.type}" class="alert"
+							role="alert">
+
+							<p class="text-center" th:text="${session.message.content}"></p>
+
+							<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+
+						</div>
+			<div class="card-body ">
+			
+			
+						
+				<h1 class="text-center">Update Contact</h1>
+				
+						
+				<div class="container-fluid mt-1 ">
+
+					<form  action="#" th:action="@{/user/process-update}" method="post" th:object="${contact}"
+						enctype="multipart/form-data" class="mt-2">
+
+						<!--First Name  -->
+
+						<input type="hidden" name="c_id" th:value="${contact.c_id}">
+						
+
+						<div class="input-group mb-2 ">
+
+							<span class="input-group-text"> <i class="fa fa-plus"></i>
+							</span> <input type="text" name="contact_name" th:value="${contact.contact_name}" class="form-control"
+								th:classappend="${#fields.hasErrors('contact_name')? 'is-invalid':''}"
+								id="firstName"  placeholder="Enter Name">
+								<div class="invalid-feedback"
+									th:each="e:${#fields.errors('contact_name')}" th:text="${e}"></div>
+						</div>
+
+						<!--Second Name  -->
+
+
+						<div class="input-group mb-2 ">
+
+							<span class="input-group-text"> <i class="fas fa-user-alt"></i>
+							</span> <input type="text" name="second_name" th:value="${contact.second_name}" class="form-control"
+								id="secondName"  placeholder="Enter Nick Name">
+						</div>
+
+						<!--phone field  -->
+
+						<div class="input-group mb-2 ">
+
+							<span class="input-group-text"> <i class="fas fa-phone"></i>
+							</span> <input type="number" name="phone" th:value="${contact.phone}" class="form-control"
+								th:classappend="${#fields.hasErrors('phone')? 'is-invalid':''}"
+								id="phone"  placeholder="Enter Phone Number">
+								<div class="invalid-feedback"
+									th:each="e:${#fields.errors('phone')}" th:text="${e}"></div>
+						</div>
+
+						<!--email field  -->
+
+						<div class="input-group mb-2 ">
+
+							<span class="input-group-text">@</span> <input type="text"
+								name="email" th:value="${contact.email}" class="form-control" 
+								th:classappend="${#fields.hasErrors('email')? 'is-invalid':''}"
+								id="email" 
+								placeholder="Enter Email Address">
+								<div class="invalid-feedback"
+									th:each="e:${#fields.errors('email')}" th:text="${e}"></div>
+						</div>
+						<!--work field  -->
+
+						<div class="input-group mb-2 ">
+
+							<span class="input-group-text"> <i
+								class="fas fa-briefcase"></i>
+							</span> <input type="text" name="work" th:value="${contact.work}" class="form-control" id="work"
+								
+								placeholder="Enter Work ">
+						</div>
+						<!--Contact description  -->
+
+						<div class="input-group mb-2">
+							<!-- <span class="input-group-text">Description</span> -->
+							<textarea th:text="${contact.description}" name="description" id="mytextarea" class="form-control " style="margin-top: 0px; margin-bottom: 0px; height: 108px;" aria-label="With textarea" placeholder="Enter Description"></textarea>
+						</div>
+
+						<!--image file  -->
+						<div class="container text-center">
+						<img style="width: 150px; height: 150px;" class="my_profile_pic" th:src="@{'/image/'+${contact.image}}" alt="profile image"></img>
+						</div>
+						<div class="text-secondary">choose a new profile photo</div>
+						<div class="input-group mb-3">
+						
+							<input type="file" name="profileImage" id="inputGroupFile01">
+							
+						</div>
+
+						<!--Button  -->
+						
+						<div class="container text-center">
+						
+							<button class="btn btn-primary " >Update Contact</button>
+							
+						</div>
+					</form>
+
+				</div>
+			</div>
+
+		</div>
+		<h1 class="text-center px-3 ms-3 bg-danger" th:unless="${contact}">You
+			don't have permission to update this contact</h1>
+		<!--code for TinyMCE Editor  -->
+	<!-- <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+	  <script>
+      tinymce.init({
+        selector: '#mytextarea'
+      });
+    </script>
+ -->
+
+	</section>
+</body>
+</html>

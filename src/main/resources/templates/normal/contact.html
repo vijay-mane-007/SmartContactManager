@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>Dashboard</title>
+</head>
+<body>
+	<section>
+
+		<div class="card mx-3 " th:if=${contact}>
+			
+			<div class="card-body">
+
+				<div class="container text-center ">
+					<img style="width: 200px; height: 200px; border-radius: 50%;"
+						th:src="@{'/image/'+${contact.image}}" alt="profile image"></img>
+					<h3>
+						<span th:text="${contact.contact_name}"></span>(<span
+							th:text="${contact.second_name}"></span>)
+					</h3>
+
+					<table class="table ">
+						<thead>
+							<tr>
+								<th scope="col">#ID</th>
+								<th scope="col">SCMUSER<span th:text="${contact.c_id}"></span></th>
+
+							</tr>
+						</thead>
+						<tbody>
+
+							<tr>
+								<th scope="row">Email</th>
+								<td><span th:text="${contact.email}"></span></td>
+							</tr>
+							<tr>
+								<th scope="row">Phone</th>
+								<td><span th:text="${contact.phone}"></span></td>
+							</tr>
+							<tr>
+								<th scope="row">Work</th>
+								<td><span th:text="${contact.work}"></span></td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="description">
+						<th:bolck th:utext="${contact.description}"></th:bolck>
+
+					</div>
+
+					<div class="container mt-2 d-grid gap-2">
+						
+							<button th:onclick="|deletedContact(${contact.c_id})|" type="button" class="btn btn-danger  btn-sm btn-block">Delete</button>
+						<a href="#" th:href="@{'/user/update/'+${contact.c_id}}" >
+						<button type="button" class="btn btn-primary btn-sm btn-block">Update</button>
+						</a>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+
+		<h1 class="text-center px-3 ms-3 bg-danger" th:unless="${contact}">You
+			don't have permission to see this contact</h1>
+
+	</section>
+</body>
+</html>
